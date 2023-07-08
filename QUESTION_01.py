@@ -40,7 +40,7 @@ def CalcularDescontoFinal(pQuantidadeProdutos, pValorUnitario, pPercentualDescon
         return ValorProdutoSemDesconto - ((pQuantidadeProdutos * pValorUnitario) / 100) * pPercentualDesconto
 
 
-# MAIN PORGRAM START
+# MAIN PROGRAM START
 
 print('Bem vindo a Loja de Software de Victor Santos Reis :)')
 ValorUnitario = ObterEntradaConsoleComoNumero('Entre com o valor unitário do produto: ')
@@ -49,7 +49,7 @@ QuantidadeProdutos = 0
 # OBRIGADO O VALOR UNITÁRIO SER MAIOR QUE 200
 # ABRE UM WHILE ATÉ CONSEGUIR UM VALOR VÁLIDO
 while True:
-    # OBTEM A QUANTIDADE DE PRODUTOS
+    # OBTÉM A QUANTIDADE DE PRODUTOS
     QuantidadeProdutos = ObterEntradaConsoleComoNumero('Entre com a quantidade de produtos: ')
 
     # VERIFICA SE A QUANTIDADE NÃO É MENOR DO QUE O SOLICITADO PELA ATIVIDADE PRATICA.
