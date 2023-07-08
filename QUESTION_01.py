@@ -1,4 +1,4 @@
-# FUNCÕES AUXILIARES.
+# FUNÇÕES AUXILIARES.
 
 def ObterEntradaConsoleComoNumero(pMensagemShowInConsole):
     return int(input(pMensagemShowInConsole))
