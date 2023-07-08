@@ -2,7 +2,6 @@
 
 GLOBAL_MAXIMUM_PESO_CACHORRO = 49.99
 
-
 def ObterEntradaConsoleComoNumero(pMensagemShowInConsole):
     # RETORNAR -1 SE O VALOR DIGITADO É INVALIDO / NÃO TEXTO
     # SATISFAZ A EXIGÊNCIA DE CÓDIGO = 5 DE 6
