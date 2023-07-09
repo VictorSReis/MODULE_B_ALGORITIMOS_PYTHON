@@ -22,6 +22,10 @@ def ObterEntradaConsoleComoTextoLowerCase(pMensagemShowInConsole):
     return input(pMensagemShowInConsole).lower()
 
 
+def ExibirMensagemInicial():
+    print('Bem-vindo ao pet shop de Victor Santos Reis :)')
+
+
 def ValidarPesoCachorro(pPesoInformado):
     global GLOBAL_MAXIMUM_PESO_CACHORRO
     return pPesoInformado <= GLOBAL_MAXIMUM_PESO_CACHORRO
@@ -84,7 +88,6 @@ def ObterValorAdicional(pNumberAdicional):
 def Cachorro_Peso():
     PesoCachorro = 0
     while True:
-
         # TENTA OBTER O PESO DO CACHORRO
         PesoCachorro = ObterEntradaConsoleComoNumero("Entre com o peso do cachorro: ")
         if PesoCachorro == -1:
@@ -108,6 +111,7 @@ def Cachorro_Peso():
 def Cachorro_Pelo():
     Multiplicador = 0
     while True:
+        print()
         print('Favor informar o tamanho do pelo do cachorro, conforme disponível abaixo')
         print('Pelo Curto : c')
         print('Pelo Médio : m')
@@ -134,6 +138,7 @@ def Cachorro_Pelo():
 def Cachorro_Extra():
     TotalAdicionais = 0.00
     while True:
+        print()
         print('Especifique se deseja algum serviço adicional da lista abaixo.')
         print('1- CORTAR UNHAS - R$ 10,00')
         print('2- ESCOVAR DENTES - R$ 12,00')
@@ -154,7 +159,23 @@ def Cachorro_Extra():
 
 
 # MAIN PROGRAM
+ExibirMensagemInicial()
 
+# OBTÉM AS INFORMAÇÕES NECESSÁRIAS PARA CALCULAR O VALOR FINAL
 PesoAuAu = Cachorro_Peso()
 Multiplicador = Cachorro_Pelo()
 ValorAdicionais = Cachorro_Extra()
+ValorBanho = ObterValorCobradoBaseBanho(PesoAuAu)
+
+# FORMULA PARA CALCULO FINAL
+# VALOR BASE * MULTIPLICADOR + ADICIONAL
+ValorFinal = ValorBanho * Multiplicador + ValorAdicionais
+TextoFinal = '| O valor total a ser pago é de: R$ {:.2f} |'.format(ValorFinal)
+LenTexto = len(TextoFinal)
+
+# APLICA UM ESPAÇO ANTES DE MOSTRAR O VALOR FINAL
+print()
+
+print('-'*LenTexto)
+print(TextoFinal)
+print('-'*LenTexto)
