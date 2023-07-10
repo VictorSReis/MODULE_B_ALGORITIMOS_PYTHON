@@ -81,6 +81,7 @@ def Consultar_ConsultarTodos():
         print('Nenhum colaborador foi cadastrado até o momento!')
         return
 
+    # LISTA TODOS OS COLABORADORES E MOSTRA AS INFORMAÇÕES DE CADA UM
     print()
     TextoLista = 'LISTA DOS COLABORADORES REGISTRADOS:'
     print(TextoLista)
@@ -139,8 +140,8 @@ def Consultar_ConsultarPorSetor():
 
 
 def MostrarMenu():
-    print()
     TextoMenu = '-' * 30 + 'MENU PRINCIPAL' + '-' * 30
+    print('*'*len(TextoMenu))
     print(TextoMenu)
 
     print('1 - Cadastrar Colaborador')
@@ -155,6 +156,12 @@ def MostrarMenu():
 
 
 def CadastrarColaborador(pIdColaborador):
+
+    # SHOW MENU CADASTRO
+    TextoMenu = '-' * 30 + 'MENU DE CADASTRO' + '-' * 30
+    print('*'*len(TextoMenu))
+    print(TextoMenu)
+
     # OBTÉM A LISTA DE COLABORADORES
     global LISTA_COLABORADORES
 
@@ -169,14 +176,18 @@ def CadastrarColaborador(pIdColaborador):
     # ADICIONA NA LISTA O NOVO COLABORADOR
     LISTA_COLABORADORES.append(DicNovoColaborador.copy())
 
-    print('Colaborador ({}) cadastrado com sucesso!'.format(nome))
+    # MOSTRA O NOME DO COLABORADOR CADASTRADO
+    TextoColaboradorCadastrado = '| Colaborador ({}) cadastrado com sucesso! |'.format(nome)
+    print('-'*len(TextoColaboradorCadastrado))
+    print(TextoColaboradorCadastrado)
+    print('-'*len(TextoColaboradorCadastrado))
 
 
 def ConsultarColaborador():
     # 1. Consultar Todos / 2. Consultar por Id / 3. Consultar por Setor / 4. Retornar ao menu
 
-    print()
     TextoMenu = '-' * 30 + 'MENU DE CONSULTA' + '-' * 30
+    print('*'*len(TextoMenu))
     print(TextoMenu)
 
     while True:
@@ -188,8 +199,9 @@ def ConsultarColaborador():
         OpSelecionada = ObterEntradaConsoleComoNumero('')
 
         # VERIFICA SE A OPÇÃO NÃO É INVALIDA
-        if OpSelecionada <= 0 and OpSelecionada > 4:
+        if OpSelecionada <= 0 or OpSelecionada > 4:
             print('Opção Inválida')
+            print()
             continue
 
         # VERIFICA E FAZ A CONSULTA DO COLABORADOR COM BASE NO ID INFORMADO
@@ -205,16 +217,75 @@ def ConsultarColaborador():
 
 
 def RemoverColaborador():
-    return 0
+
+    TextoMenu = '-' * 25 + 'MENU REMOVER COLABORADOR' + '-' * 25
+    print('*'*len(TextoMenu))
+    print(TextoMenu)
+
+    # VARIÁVEL QUE VAI RECEBER O ID QUE SERÁ REMOVIDO
+    IdParaRemover = -1
+
+    # ABRE UM LAÇO PARA OBTER O ID E TENTAR VALIDAR PARA SABER SE EXISTE MESMO
+    while True:
+        # SOLICITA O ID
+        IdParaRemover = ObterEntradaConsoleComoNumero('Informe o id do colaborador a ser removido: ')
+
+        # VERIFICA SE O ID EXISTE
+        IdColaboradorExiste = VerificarIDColaboradorExiste(IdParaRemover)
+        if not IdColaboradorExiste:
+            print(
+                'O ID-{} informado não existe na lista de colaboradores. Informe um Id válido'.format(IdParaRemover))
+
+            # SAI DO MENU CASO O USUÁRIO NÃO LEMBRE O ID OU NÃO TENHA CADASTRADO
+            # CASO NÃO TIVESSE NADA CADASTRADO, O USUÁRIO FICARIA PRESO NESSE MENU SE NÃO HOUVER
+            # ESSA SESSÃO DE CÓDIGO
+            SairMenu = ObterEntradaConsoleComoTexto('Deseja sair do menu (s/n)?: ').lower()
+            if SairMenu == 's':
+                IdParaRemover = -1
+                break
+
+            continue
+
+        # SE CHEGOU ATÉ AQUI O ID É VÁLIDO E O LAÇO PODE SER QUEBRADO
+        break
+
+    # VERIFICA SE O USUÁRIO NÃO OPTOU POR SAIR
+    # SE SIM, A VARIÁVEL 'IdParaRemover' TEM SEU VALOR IGUAL A -1
+    if IdParaRemover == -1:
+        return
+
+    # OBTÉM A VARIÁVEL COM OS COLABORADORES
+    global LISTA_COLABORADORES
+
+    # OBTÉM A QUANTIDADE DE COLABORADORES
+    QuantidadeColaboradores = len(LISTA_COLABORADORES)
+
+    # ARMAZENA O DICT DO COLABORADOR A SER REMOVIDO
+    DictColaboradorRemover = dict()
+
+    # ABRE UM FOR PARA PROCURAR O INDEX DA LISTA A QUAL ESTÁ O COLABORADOR DO ID INFORMADO
+    for i in range(0, QuantidadeColaboradores, 1):
+        if LISTA_COLABORADORES[i]['id'] == IdParaRemover:
+            DictColaboradorRemover = LISTA_COLABORADORES[i]
+            break
+
+    # REMOVE O COLABORADOR
+    LISTA_COLABORADORES.remove(DictColaboradorRemover)
 
 
 # MAIN PROGRAM
+print('Bem-Vindo ao Departamento de Controle de Colaboradores de Victor Santos Reis :)')
 while True:
 
-    # MOSTRA O MENU PRINCIPAL PARA O USUÁRIO
+    # MOSTRA O MENU PRINCIPAL PARA O USUÁRIO E OBTÉM O ID DA FUNÇÃO DESEJADA
     idMenu = MostrarMenu()
 
-    # CADASTRO
+    # VALIDA O ID INFORMADO
+    if idMenu <= 0 or idMenu >= 5:
+        print('Opção inválida')
+        continue
+
+    # CADASTRAR COLABORADOR
     if idMenu == 1:
         # INCREMENTA A VARIÁVEL GLOBAL
         ID_GLOBAL += 1
@@ -225,7 +296,7 @@ while True:
         # VOLTA PARA O INICIO DO MENU PRINCIPAL
         continue
 
-    # CONSULTA
+    # CONSULTAR COLABORADOR
     elif idMenu == 2:
         # CHAMA O MÉTODO QUE ABRE O SUB MENU DE CONSULTA
         ConsultarColaborador()
@@ -233,11 +304,15 @@ while True:
         # VOLTA PARA O INICIO DO MENU PRINCIPAL
         continue
 
-    # REMOVER
+    # REMOVER COLABORADOR
     elif idMenu == 3:
-        break
+        # CHAMA O MÉTODO PARA REMOVER O COLABORADOR
+        RemoverColaborador()
 
-    # SAIR
+        # VOLTA PARA O INICIO DO MENU PRINCIPAL
+        continue
+
+    # SAIR - ID 4
     else:
         # ENCERRA O PROGRAMA
         print('Encerando...')

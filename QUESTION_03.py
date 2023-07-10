@@ -109,13 +109,19 @@ def Cachorro_Peso():
 
 
 def Cachorro_Pelo():
+
+    # VARIÁVEL QUE VAI CONTER O VALOR DO MULTIPLICADOR
     Multiplicador = 0
+
+    # ABRE O LAÇO PARA OBTER O MULTIPLICADOR E VALIDAR ANTES QUE POSSA RETORNAR.
     while True:
         print()
         print('Favor informar o tamanho do pelo do cachorro, conforme disponível abaixo')
         print('Pelo Curto : c')
         print('Pelo Médio : m')
         print('Pelo Longo : l')
+
+        # OBTÉM O TAMANHO DO PELO PARA DEFINIR QUAL SERÁ O MULTIPLICADOR.
         TamanhoPelo = ObterEntradaConsoleComoTextoLowerCase('Tamanho: ')
         if not ValidarTamanhoPelo(TamanhoPelo):
             print('O tamanho do peso informado ({}) não é válido. Tente novamente.'.format(TamanhoPelo))
