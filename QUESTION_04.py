@@ -15,9 +15,9 @@ def ObterEntradaConsoleComoNumero(pMensagemShowInConsole):
     return int(input(pMensagemShowInConsole))
 
 
-def MontarDicionarioNovoColaborador(pIdColaborador, pNomeColaborador, pSetorColaborador, pSalarioColaborador):
+def MontarDicionarioNovoColaborador(pIdColaborador, pNomeColaborador, pSetorColaborador, pPagamentoColaborador):
     NOVO_COLABORADOR_DICI = {'id': pIdColaborador, 'nome': pNomeColaborador, 'setor': pSetorColaborador,
-                             'salario': pSalarioColaborador}
+                             'pagamento': pPagamentoColaborador}
     return NOVO_COLABORADOR_DICI
 
 
@@ -48,7 +48,7 @@ def MostrarInfoColaborador(pIdColaboradorInLista):
     print('ID: {}'.format(ColaboradorDict['id']))
     print('Nome: {}'.format(ColaboradorDict['nome']))
     print('Setor: {}'.format(ColaboradorDict['setor']))
-    print('Salário: {}'.format(ColaboradorDict['salario']))
+    print('Pagamento: {}'.format(ColaboradorDict['pagamento']))
 
 
 def VerificarIDColaboradorExiste(pIdVerificar):
@@ -165,13 +165,18 @@ def CadastrarColaborador(pIdColaborador):
     # OBTÉM A LISTA DE COLABORADORES
     global LISTA_COLABORADORES
 
+    # OBTÉM O ID ATUAL
+    global ID_GLOBAL
+
+    print('Colaborador ID: {}'.format(ID_GLOBAL))
+
     # OBTÉM AS INFORMAÇÕES DO NOVO COLABORADOR
     nome = ObterEntradaConsoleComoTexto('Digite o nome do colaborador: ')
     setor = ObterEntradaConsoleComoTexto('Digite o setor do colaborador: ')
-    salario = ObterEntradaConsoleComoTexto('Digite o salário do colaborador R$: ')
+    pagamento = ObterEntradaConsoleComoTexto('Digite o pagamento do colaborador R$: ')
 
     # CRIA O DICIONARIO PARA O NOVO COLABORADOR
-    DicNovoColaborador = MontarDicionarioNovoColaborador(pIdColaborador, nome, setor, salario)
+    DicNovoColaborador = MontarDicionarioNovoColaborador(pIdColaborador, nome, setor, pagamento)
 
     # ADICIONA NA LISTA O NOVO COLABORADOR
     LISTA_COLABORADORES.append(DicNovoColaborador.copy())

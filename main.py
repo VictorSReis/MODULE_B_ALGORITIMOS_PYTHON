@@ -15,9 +15,9 @@ def ObterEntradaConsoleComoNumero(pMensagemShowInConsole):
     return int(input(pMensagemShowInConsole))
 
 
-def MontarDicionarioNovoColaborador(pIdColaborador, pNomeColaborador, pSetorColaborador, pSalarioColaborador):
+def MontarDicionarioNovoColaborador(pIdColaborador, pNomeColaborador, pSetorColaborador, pPagamentoColaborador):
     NOVO_COLABORADOR_DICI = {'id': pIdColaborador, 'nome': pNomeColaborador, 'setor': pSetorColaborador,
-                             'salario': pSalarioColaborador}
+                             'pagamento': pPagamentoColaborador}
     return NOVO_COLABORADOR_DICI
 
 
@@ -27,28 +27,24 @@ def ObterDictColaboradorId(pIdColaborador):
     # OBTÉM A VARIÁVEL COM OS COLABORADORES
     global LISTA_COLABORADORES
 
-    # RETORNA A QUANTIDADE DE ITENS DENTRO DA LISTA
-    QuantidadeColaboradores = len(LISTA_COLABORADORES)
-
     # FAZ UM FOR PARA VERIFICAR SE EXISTE
-    for i in range(0, QuantidadeColaboradores, 1):
-        ColaboradorDic = dict(LISTA_COLABORADORES[i])
-        if ColaboradorDic['id'] == pIdColaborador:
-            DicionarioColaborador = ColaboradorDic.copy()
+    for ItemDict in LISTA_COLABORADORES:
+        if ItemDict['id'] == pIdColaborador:
+            DicionarioColaborador = ItemDict.copy()
             break
 
     return DicionarioColaborador
 
 
-def MostrarInfoColaborador(pIdColaboradorInLista):
+def MostrarInfoColaborador(pIdColaborador):
     # OBTÉM O DICIONÁRIO COM AS INFORMAÇÕES DO COLABORADOR COM BASE NO ID INFORMADO NO PARÂMETRO
-    ColaboradorDict = ObterDictColaboradorId(pIdColaboradorInLista)
+    ColaboradorDict = ObterDictColaboradorId(pIdColaborador)
 
     # MOSTRA AS INFORMAÇÕES DO COLABORADOR
     print('ID: {}'.format(ColaboradorDict['id']))
     print('Nome: {}'.format(ColaboradorDict['nome']))
     print('Setor: {}'.format(ColaboradorDict['setor']))
-    print('Salário: {}'.format(ColaboradorDict['salario']))
+    print('Pagamento: {}'.format(ColaboradorDict['pagamento']))
 
 
 def VerificarIDColaboradorExiste(pIdVerificar):
@@ -57,13 +53,9 @@ def VerificarIDColaboradorExiste(pIdVerificar):
     # OBTÉM A VARIÁVEL COM OS COLABORADORES
     global LISTA_COLABORADORES
 
-    # RETORNA A QUANTIDADE DE ITENS DENTRO DA LISTA
-    QuantidadeColaboradores = len(LISTA_COLABORADORES)
-
     # FAZ UM FOR PARA VERIFICAR SE EXISTE
-    for i in range(0, QuantidadeColaboradores, 1):
-        ColaboradorDic = dict(LISTA_COLABORADORES[i])
-        if ColaboradorDic['id'] == pIdVerificar:
+    for ItemDict in LISTA_COLABORADORES:
+        if ItemDict['id'] == pIdVerificar:
             ResultadoIDExiste = True
             break
 
@@ -86,9 +78,9 @@ def Consultar_ConsultarTodos():
     TextoLista = 'LISTA DOS COLABORADORES REGISTRADOS:'
     print(TextoLista)
     print('-'*len(TextoLista))
-    for i in range(1, QuantidadeColaboradores+1, 1):
+    for i in LISTA_COLABORADORES:
         # CHAMA O MÉTODO RESPONSÁVEL POR MOSTRAR AS INFORMÇÕES DO COLABORADOR
-        MostrarInfoColaborador(i)
+        MostrarInfoColaborador(i['id'])
         print()
 
     print('FINAL LISTA' + '-'*25)
@@ -165,13 +157,18 @@ def CadastrarColaborador(pIdColaborador):
     # OBTÉM A LISTA DE COLABORADORES
     global LISTA_COLABORADORES
 
+    # OBTÉM O ID ATUAL
+    global ID_GLOBAL
+
+    print('Colaborador ID: {}'.format(ID_GLOBAL))
+
     # OBTÉM AS INFORMAÇÕES DO NOVO COLABORADOR
     nome = ObterEntradaConsoleComoTexto('Digite o nome do colaborador: ')
     setor = ObterEntradaConsoleComoTexto('Digite o setor do colaborador: ')
-    salario = ObterEntradaConsoleComoTexto('Digite o salário do colaborador R$: ')
+    pagamento = ObterEntradaConsoleComoTexto('Digite o pagamento do colaborador R$: ')
 
     # CRIA O DICIONARIO PARA O NOVO COLABORADOR
-    DicNovoColaborador = MontarDicionarioNovoColaborador(pIdColaborador, nome, setor, salario)
+    DicNovoColaborador = MontarDicionarioNovoColaborador(pIdColaborador, nome, setor, pagamento)
 
     # ADICIONA NA LISTA O NOVO COLABORADOR
     LISTA_COLABORADORES.append(DicNovoColaborador.copy())

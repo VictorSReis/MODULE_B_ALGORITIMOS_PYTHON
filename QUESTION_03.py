@@ -92,6 +92,7 @@ def Cachorro_Peso():
         PesoCachorro = ObterEntradaConsoleComoNumero("Entre com o peso do cachorro: ")
         if PesoCachorro == -1:
             print('Favor informar um peso valido, apenas número é aceito!')
+            print()
             continue
 
         # VALIDA O PESO DO CACHORRO== FALSE SE >= 50 kg
@@ -100,6 +101,7 @@ def Cachorro_Peso():
         if not PesoValido:
             print('Desculpe, apenas cachorro com o peso inferior a 50 kg é aceito!')
             print('Informe um valor válido')
+            print()
             continue
 
         # SE CHEGAR AQUI O PESO FOI OBTIDO E VALIDADO COM SUCESSO

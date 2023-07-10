@@ -34,7 +34,15 @@ def ObterEntradaConsoleComoTexto(pMensagemShowInConsole):
 
 
 def ObterEntradaConsoleComoNumero(pMensagemShowInConsole):
-    return int(input(pMensagemShowInConsole))
+    # VARIÁVEL A SER RETORNADA
+    ValueInput = 0
+
+    try:
+        ValueInput = int(input(pMensagemShowInConsole))
+    except ValueError:
+        ValueInput = -1
+
+    return ValueInput
 
 
 def ValidarNomeSabor(pNomeSaborInput):
@@ -129,12 +137,16 @@ ValorTotal = 0.00
 
 # ABRE UM WHILE PARA OBTER AS INFORMAÇÕES NECESSÁRIAS E FAZER O PEDIDO
 while True:
+    print()
+    # OBTÉM O NOME DO SABOR DESEJADO
     NomeSaborSorvete = ObterEntradaConsoleComoTexto('Entre com o sabor do sorvete desejado(tr/pr/es): ')
     NomeValido = ValidarNomeSabor(NomeSaborSorvete)
     if not NomeValido:
         print('Sabor de Sorvete Inválido')
         continue
 
+    # CHAMA O MÉTODO PARA OBTER A QUANTIDADE DE BOLAS DESEJADAS PELO CLIENTE
+    # RETORNAR -1 SE O VALOR NÁO FOR NUMÉRICO
     QuantidadeBolas = ObterEntradaConsoleComoNumero("Entre com o número de bolas de sorvete desejado(1/2/3): ")
     QtdBolasValido = ValidarQuantidadeBolas(QuantidadeBolas)
     if not QtdBolasValido:
@@ -152,4 +164,5 @@ while True:
         # O CLIENTE AINDA NÃO FINALIZOU O PEDIDO
         continue
 
+print()
 print('Valor total do pedido: R$ {:.2f}'.format(ValorTotal))
